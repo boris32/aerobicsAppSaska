@@ -63,9 +63,12 @@ public class MonthAndYearPicker extends Dialog {
         monthSpinner.setAdapter(adapterMonth);
 
 
-        String[] arraySpinnerYear = new String[] {
+        /*String[] arraySpinnerYear = new String[] {
                 "2018", "2019", "2020", "2021", "2022"
-        };
+        };*/
+        String[] arraySpinnerYear = new String[3];
+        for (int i = 0; i < 3; i++)
+            arraySpinnerYear[i] = Integer.toString(Calendar.getInstance().get(Calendar.YEAR) + i);
 
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_dropdown_item, arraySpinnerYear);
