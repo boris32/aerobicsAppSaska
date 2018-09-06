@@ -61,7 +61,7 @@ public class MonthAndYearPicker extends Dialog {
                 android.R.layout.simple_spinner_dropdown_item, arraySpinner);
         //adapter.setDropDownViewResource(android.R.layout.simple_spin‌​ner_dropdown_item);
         monthSpinner.setAdapter(adapterMonth);
-        
+
         String[] arraySpinnerYear = new String[3];
         for (int i = 0; i < 3; i++)
             arraySpinnerYear[i] = Integer.toString(Calendar.getInstance().get(Calendar.YEAR) + i);
@@ -84,9 +84,18 @@ public class MonthAndYearPicker extends Dialog {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dm.addNewMonthEntry(getCurrentlySelectedMonth(), getCurrentlySelectedYear());
-                dismiss();
-                refresher.refresh();
+
+                if (dm.isTheProposedMonthYearComboUnique(getCurrentlySelectedMonth(), getCurrentlySelectedYear())) {
+                    dm.addNewMonthEntry(getCurrentlySelectedMonth(), getCurrentlySelectedYear());
+                    dismiss();
+                    refresher.refresh();
+                }
+                else
+                {
+
+                    ErrorDialog er = new ErrorDialog(context, context.getResources().getString(R.string.error_month_year_combo_already_exists));
+                    er.show();
+                }
             }
         });
 

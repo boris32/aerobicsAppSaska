@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.nio.file.Path;
+
 /**
  * Created by Boris on 5/18/2018.
  */
@@ -46,184 +48,18 @@ public class DataManager {
         CustomSQLiteOpenHelper helper = new CustomSQLiteOpenHelper(context);
         db = helper.getWritableDatabase();
 
-        insertMockDataIntoDb(db);
+        //TEMP: Remove this
+        //String s= db.getPath();
+        //String dbname = "myapp.db";
+        //Path p = context.getDatabasePath(dbname);
+
+        //insertMockDataIntoDb(db);
     }
 
     //Insert mock data
-    public void insertMockDataIntoDb (SQLiteDatabase db) {
-        /*
-        //RESET DATA:
+    /*public void insertMockDataIntoDb (SQLiteDatabase db) {
 
-        //String del = "drop database " + DB_NAME;
-
-
-        String del = "delete from " + BUSINESS_MONTH_TABLE_NAME + " where _id > 0";
-        db.execSQL(del);
-       del = "delete from " + CUSTOMER_TABLE_NAME + " where customer_id > 0";
-        db.execSQL(del);
-        del = "delete from " + BUSINES_MONTH_CUSTOMERS + " where _id > 0";
-        db.execSQL(del);
-
-
-        //BUSYNESS MONTH MOCKING
-        String query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('Dec', 2017, 'true', 'true')";
-            db.execSQL(query);
-
-        query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('Jan', 2018, 'true', 'true')";
-        db.execSQL(query);
-
-        query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('Feb', 2018, 'true', 'true')";
-        db.execSQL(query);
-
-        query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('Mar', 2018, 'true', 'true')";
-        db.execSQL(query);
-
-        query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('Apr', 2018, 'true', 'true')";
-        db.execSQL(query);
-
-        query = "insert into "
-                + BUSINESS_MONTH_TABLE_NAME
-                + " ("
-                + TABLE_ROW_MONTH
-                + ", "
-                + TABLE_ROW_YEAR
-                + ", "
-                + TABLE_ROW_IS_CURRENT
-                + ", "
-                + TABLE_ROW_IS_ENABLED
-                + ") values ('May', 2018, 'true', 'true')";
-        db.execSQL(query);
-
-
-        //CUSTOMER MOCKING
-        query = "insert into "
-                + CUSTOMER_TABLE_NAME
-                + " ("
-                + TABLE_ROW_FIRST_NAME
-                + ", "
-                + TABLE_ROW_LAST_NAME
-                + ", "
-                + TABLE_ROW_USUAL_FEE
-                + ") values ('Ena', 'Sabados', '1000')";
-        db.execSQL(query);
-        query = "insert into "
-                + CUSTOMER_TABLE_NAME
-                + " ("
-                + TABLE_ROW_FIRST_NAME
-                + ", "
-                + TABLE_ROW_LAST_NAME
-                + ", "
-                + TABLE_ROW_USUAL_FEE
-                + ") values ('Jane', 'Doe', '1000')";
-        db.execSQL(query);
-
-        //CUSTOMER BY MONTH MOCKING
-        Cursor c = db.rawQuery("select customer_id from customer where first_name = 'Ena'", null);
-        //Cursor c = db.rawQuery("select * from customer", null);
-        String cid = "";
-        while (c.moveToNext())
-            cid = c.getString(0);
-        c = db.rawQuery("select _id from business_month where month_name = 'May'", null);
-        String mid = "";
-        while (c.moveToNext())
-            mid = c.getString(0);
-        query = "insert into "
-                + BUSINES_MONTH_CUSTOMERS
-                + " ("
-                + TABLE_ROW_MONTH_ID
-                + ", "
-                + TABLE_ROW_CUSTOMER_ID
-                + ", "
-                + TABLE_ROW_AMOUNT_PAID
-                + ") values ('" + mid + "', '" + cid + "', '1000')";
-        db.execSQL(query);
-
-        c = db.rawQuery("select customer_id from customer where first_name = 'Jane'", null);
-        while (c.moveToNext())
-            cid = c.getString(0);
-        c = db.rawQuery("select _id from business_month where month_name = 'May'", null);
-        while (c.moveToNext())
-            mid = c.getString(0);
-        query = "insert into "
-                + BUSINES_MONTH_CUSTOMERS
-                + " ("
-                + TABLE_ROW_MONTH_ID
-                + ", "
-                + TABLE_ROW_CUSTOMER_ID
-                + ", "
-                + TABLE_ROW_AMOUNT_PAID
-                + ") values ('" + mid + "', '" + cid + "', '800')";
-        db.execSQL(query);
-
-        c = db.rawQuery("select customer_id from customer where first_name = 'Ena'", null);
-        while (c.moveToNext())
-            cid = c.getString(0);
-        c = db.rawQuery("select _id from business_month where month_name = 'Apr'", null);
-        while (c.moveToNext())
-            mid = c.getString(0);
-        query = "insert into "
-                + BUSINES_MONTH_CUSTOMERS
-                + " ("
-                + TABLE_ROW_MONTH_ID
-                + ", "
-                + TABLE_ROW_CUSTOMER_ID
-                + ", "
-                + TABLE_ROW_AMOUNT_PAID
-                + ") values ('" + mid + "', '" + cid + "', '1000')";
-        db.execSQL(query);
-
-        */
-    }
+    }*/
 
     //Get all records:
     public Cursor getAllBusinessMonthRecords() {
@@ -283,6 +119,31 @@ public class DataManager {
                 ;
 
         db.execSQL(query);
+    }
+
+    //Check if month/ year combo already exists in the DB
+    public boolean isTheProposedMonthYearComboUnique(String month, String year) {
+        boolean result = false;
+
+        String query = "select "
+                + TABLE_ROW_ID
+                + " from "
+                + BUSINESS_MONTH_TABLE_NAME
+                + " where "
+                + TABLE_ROW_MONTH
+                + " = '"
+                + month
+                + "' AND "
+                + TABLE_ROW_YEAR
+                + " = '"
+                + year
+                + "'";
+
+        Cursor c = db.rawQuery(query, null);
+        if (c.getCount() <= 0)
+            result = true;
+
+        return result;
     }
 
     //Add new month

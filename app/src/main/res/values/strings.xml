@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">myAndroidApp</string>
+    <string name="error_dialog_title_text">SORRY!</string>
+
+    <!-- ERROR MESSAGES-->
+    <string name="error_month_year_combo_already_exists">The month - year combination that you have selected is already in use. Please check the Months list at the left-hand side of main app screen.</string>
 </resources>
