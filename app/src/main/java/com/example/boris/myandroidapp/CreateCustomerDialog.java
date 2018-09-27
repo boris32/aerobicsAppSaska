@@ -3,6 +3,9 @@ package com.example.boris.myandroidapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,7 +69,61 @@ public class CreateCustomerDialog extends Dialog {
                 dismiss();
             }
         });
+
+        fname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                btnCreate.setEnabled(validateEntryInTextField());
+            }
+        });
+
+        lname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                btnCreate.setEnabled(validateEntryInTextField());
+            }
+        });
+
+        fee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                btnCreate.setEnabled(validateEntryInTextField());
+            }
+        });
     }
 
+    public boolean validateEntryInTextField () {
+        return (!fname.getText().toString().trim().equals("") && !lname.getText().toString().trim().equals("") && !fee.getText().toString().trim().equals(""));
+    }
 
 }
