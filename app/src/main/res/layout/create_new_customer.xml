@@ -39,6 +39,7 @@
             android:text="" />
 
         <TextView
+            android:id="@+id/usualFeeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Usual Fee" />
