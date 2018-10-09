@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_weight=".05"
+                    android:enabled="false"
                     android:text="Add New Customer" />
             </LinearLayout>
 
