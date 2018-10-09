@@ -66,6 +66,22 @@ public class DataManager {
         return db.rawQuery("select " + TABLE_ROW_MONTH + ", " + TABLE_ROW_YEAR + ", " + TABLE_ROW_ID + " from " + BUSINESS_MONTH_TABLE_NAME, null);
     }
 
+    //Get number of months added so far
+    public int howManyMonthsHaveBeenConfigured() {
+        String query = "select count("
+                + TABLE_ROW_ID
+                + ") from "
+                + BUSINESS_MONTH_TABLE_NAME;
+                /*+ " where "
+                + TABLE_ROW_IS_ENABLED
+                + " = 1";*/
+
+        Cursor c = db.rawQuery(query, null);
+        c.moveToNext();
+
+        return c.getInt(0);
+    }
+
     //Get month id by name and year:
     public Cursor getMonthId(String month, String year) {
         return db.rawQuery("select " + TABLE_ROW_ID + " from " + BUSINESS_MONTH_TABLE_NAME + " where " + TABLE_ROW_MONTH + "=" + month + " and " + TABLE_ROW_YEAR + "=" + year, null);

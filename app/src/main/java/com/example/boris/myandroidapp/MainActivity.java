@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         addNewMonth = (Button)findViewById(R.id.addNewMonth);
 
         btnAddCustomer = (Button)findViewById(R.id.buttonAddNewCustomer);
+        if (dm.howManyMonthsHaveBeenConfigured() >0)
+            btnAddCustomer.setEnabled(true);
 
         //MONTHS LIST:
         listMonths = (ListView) findViewById(R.id.MonthsList);
@@ -95,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                         populateMonthsList();
                         currentlyDisplayedMonthId = monthsIdMap.get(0);
                         populateCustomersList(currentlyDisplayedMonthId);
+                        if (dm.howManyMonthsHaveBeenConfigured() >0)
+                            btnAddCustomer.setEnabled(true);
+                        else
+                            btnAddCustomer.setEnabled(false);
 
 
                         //populateMonthsList();
@@ -128,10 +134,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> list = listUtil.getMonthsList(dm, listMonths, monthsIdMap);
 
         //TODO: get rid of this workaround
-        if (list.isEmpty())
+        if (list.isEmpty()) {
             list.add("...");
+            /*listMonths.setEnabled(false);
+            btnAddCustomer.setEnabled(false);*/
+        }
         if (list.size() > 1) {
             list.remove("...");
+            /*listMonths.setEnabled(true);
+            btnAddCustomer.setEnabled(true);*/
         }
 
         final ArrayAdapter adapter = new ArrayAdapter(this,
